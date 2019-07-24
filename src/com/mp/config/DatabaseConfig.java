@@ -195,6 +195,7 @@ public class DatabaseConfig {
 	public static void addUser(User user) {
 		Connection con = getConnection();
 		PreparedStatement ps;
+		System.out.println(user);
 		try {
 			String sql = "INSERT INTO `user`(`name`, `password`, `email`, `mobile_number`, `address`, `user_type`) VALUES (?,?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
@@ -207,8 +208,7 @@ public class DatabaseConfig {
 			
 			if(ps.executeUpdate() == 1) {
 				JOptionPane.showMessageDialog(MainFrame.frame, "User added", "Success", JOptionPane.INFORMATION_MESSAGE);
-			}
-			
+			}			
 			con.close();
 		} catch (Exception e) {
 			// TODO: handle exception

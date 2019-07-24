@@ -1,9 +1,6 @@
 package com.mp.views.accountant;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
-import com.mp.model.User;
 import com.mp.model.UserFee;
 
 import javax.swing.JLabel;
@@ -13,11 +10,14 @@ import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class AccountantSearchResultRow extends JPanel {
 
+	private static final long serialVersionUID = 1L;
+
 	public JButton btnPay;
-	
+
 	public AccountantSearchResultRow(int i, UserFee userFee) {
 		setBounds(0, 0, 851, 30);
 
@@ -53,35 +53,35 @@ public class AccountantSearchResultRow extends JPanel {
 			setBackground(Color.LIGHT_GRAY);
 		}
 
+		JLabel lblCourse = new JLabel(userFee.course);
+		lblCourse.setFont(new Font("Candara", Font.PLAIN, 12));
+		lblCourse.setBorder(new MatteBorder(0, 0, 0, 1, (Color) new Color(0, 0, 0)));
+
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addGap(7)
-						.addComponent(lblRegNo, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
-						.addGap(7)
-						.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
-						.addGap(7)
-						.addComponent(lblMobileNumber, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
-						.addGap(7)
-						.addComponent(lblFeeType, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-						.addGap(7)
-						.addComponent(lblFee, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-						.addGap(7)
-						.addComponent(lblPaid, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-						.addGap(7)
-						.addComponent(lblDue, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-						.addGap(7)
-						.addComponent(btnPay, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-						.addGap(6)));
+				.addGroup(groupLayout.createSequentialGroup().addGap(7)
+						.addComponent(lblRegNo, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE).addGap(7)
+						.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE).addGap(7)
+						.addComponent(lblMobileNumber, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+						.addGap(7).addComponent(lblCourse, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+						.addGap(7).addComponent(lblFeeType, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+						.addGap(7).addComponent(lblFee, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+						.addGap(7).addComponent(lblPaid, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+						.addGap(7).addComponent(lblDue, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+						.addGap(2).addComponent(btnPay, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)));
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(lblFee, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-				.addComponent(lblPaid, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-				.addComponent(lblMobileNumber, GroupLayout.DEFAULT_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-				.addComponent(lblFeeType, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-				.addComponent(lblRegNo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-				.addComponent(lblName, GroupLayout.DEFAULT_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-				.addComponent(lblDue, GroupLayout.DEFAULT_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-				.addComponent(btnPay, GroupLayout.DEFAULT_SIZE, 25, GroupLayout.PREFERRED_SIZE));
+				.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblFee, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPaid, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblMobileNumber, GroupLayout.DEFAULT_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblFeeType, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRegNo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblName, GroupLayout.DEFAULT_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDue, GroupLayout.DEFAULT_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnPay, GroupLayout.DEFAULT_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCourse, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+						));
 		setLayout(groupLayout);
 	}
 }

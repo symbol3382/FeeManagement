@@ -16,11 +16,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class AdminPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
 	JPanel adminSidePanel;
 	JPanel currentPanel;
-	
+
 	JPanel panel = this;
-	
+
 	public JButton btnLogout;
 
 	AdminDashboard adminDashboard;
@@ -59,14 +60,13 @@ public class AdminPanel extends JPanel {
 				adminDashboard.setVisible(true);
 				currentPanel = adminDashboard;
 				panel.add(adminDashboard);
-
 			}
 		});
 		btnDashboard.setBackground(Color.WHITE);
 		btnDashboard.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.DARK_GRAY));
 		btnDashboard.setFont(new Font("Candara", Font.BOLD, 14));
-		
-		JButton btnAddStudent = new JButton("Add Student");
+
+		JButton btnAddStudent = new JButton("Add User");
 		btnAddStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				adminAddUser = new AdminAddUser(user);
@@ -80,13 +80,24 @@ public class AdminPanel extends JPanel {
 		btnAddStudent.setFont(new Font("Candara", Font.BOLD, 14));
 		btnAddStudent.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.DARK_GRAY));
 		btnAddStudent.setBackground(Color.WHITE);
-		
+
 		btnLogout = new JButton("Logout");
 
 		btnLogout.setForeground(Color.DARK_GRAY);
 		btnLogout.setFont(new Font("Candara", Font.BOLD, 14));
 		btnLogout.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.DARK_GRAY));
 		btnLogout.setBackground(Color.WHITE);
+
+		JButton btnAddFeeEvent = new JButton("Add Fee Event");
+		btnAddFeeEvent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnAddFeeEvent.setForeground(Color.DARK_GRAY);
+		btnAddFeeEvent.setFont(new Font("Candara", Font.BOLD, 14));
+		btnAddFeeEvent.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.DARK_GRAY));
+		btnAddFeeEvent.setBackground(Color.WHITE);
 		GroupLayout gl_adminSidePanel = new GroupLayout(adminSidePanel);
 		gl_adminSidePanel.setHorizontalGroup(
 			gl_adminSidePanel.createParallelGroup(Alignment.LEADING)
@@ -94,8 +105,9 @@ public class AdminPanel extends JPanel {
 					.addGroup(gl_adminSidePanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnDashboard, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnAddStudent, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAddFeeEvent, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
+					.addGap(460))
 		);
 		gl_adminSidePanel.setVerticalGroup(
 			gl_adminSidePanel.createParallelGroup(Alignment.LEADING)
@@ -104,19 +116,21 @@ public class AdminPanel extends JPanel {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnAddStudent, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnAddFeeEvent, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(439, Short.MAX_VALUE))
+					.addContainerGap(392, Short.MAX_VALUE))
 		);
 		adminSidePanel.setLayout(gl_adminSidePanel);
 		setLayout(groupLayout);
 	}
-	
+
 	private void hideAllComponent() {
-		if(adminDashboard != null) {
+		if (adminDashboard != null) {
 			System.out.println("admin Dashboard false");
 			adminDashboard.setVisible(false);
 		}
-		if(adminAddUser != null) {
+		if (adminAddUser != null) {
 			adminAddUser.setVisible(false);
 		}
 	}

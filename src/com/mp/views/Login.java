@@ -11,17 +11,12 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.border.MatteBorder;
 
-import com.mp.config.DatabaseConfig;
-import com.mp.test.TestWindow;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 public class Login extends JPanel {
+	private static final long serialVersionUID = 1L;
 	public JTextField tf_username;
 	public JPasswordField tf_password;
 

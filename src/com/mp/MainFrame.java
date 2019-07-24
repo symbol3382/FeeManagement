@@ -23,6 +23,8 @@ import javax.swing.GroupLayout.Alignment;
 
 public class MainFrame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
 	public static JFrame frame;
 
@@ -32,7 +34,7 @@ public class MainFrame extends JFrame {
 	AdminPanel adminPanel;
 	JPanel currentPanel;
 
-	/**
+	/*
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {

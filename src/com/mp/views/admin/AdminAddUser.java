@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import javax.swing.JSplitPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
@@ -21,6 +20,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AdminAddUser extends JPanel {
+	private static final long serialVersionUID = 1L;
+
 	private JTextField tf_name;
 	private JTextField tf_email;
 	private JTextField tf_mobile_number;
@@ -86,14 +87,14 @@ public class AdminAddUser extends JPanel {
 
 		String[] user_types = {"student", "accountant", "admin"};
 		
-		JComboBox cb_user_type = new JComboBox(user_types);
+		JComboBox<String> cb_user_type = new JComboBox(user_types);
 		cb_user_type.setFont(new Font("Candara", Font.PLAIN, 15));
 
 		JButton btnAddUser = new JButton("Add User");
 		btnAddUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String name = tf_name.getText();
-				String password = tf_password.getText();
+				String password = new String(tf_password.getPassword());
 				String email = tf_email.getText();
 				String mobile_number = tf_mobile_number.getText();
 				String address = tf_address.getText();

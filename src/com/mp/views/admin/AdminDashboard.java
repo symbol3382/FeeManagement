@@ -10,11 +10,12 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import javax.swing.JSplitPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class AdminDashboard extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 
 	public AdminDashboard(User user) {
 		setBackground(Color.white);
