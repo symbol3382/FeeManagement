@@ -22,7 +22,7 @@ public class AdminDashboard extends JPanel {
 		setBounds(152, 0, 720, 543);
 
 
-		JLabel lblUserName = new JLabel(user.name);
+		JLabel lblUserName = new JLabel(user.getName());
 		lblUserName.setFont(new Font("Candara", Font.BOLD, 30));
 		lblUserName.setBackground(Color.WHITE);
 

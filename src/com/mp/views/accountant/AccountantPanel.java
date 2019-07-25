@@ -62,7 +62,7 @@ public class AccountantPanel extends JPanel {
 		btnSearchByRegistration.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		btnSearchByRegistration.setBackground(Color.WHITE);
 
-		JLabel lblAccountant = new JLabel(user.name);
+		JLabel lblAccountant = new JLabel(user.getName());
 		lblAccountant.setFont(new Font("Candara", Font.PLAIN, 30));
 
 		JPanel listTitlePanel = new JPanel();

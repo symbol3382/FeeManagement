@@ -27,7 +27,7 @@ public class DatabaseConfig {
 
 	public static Connection getConnection() {
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/feedb", "root", "");
+			connection = DriverManager.getConnection("jdbc:mysql://" + IP + ":3306/fee_management", "root", "");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -199,12 +199,12 @@ public class DatabaseConfig {
 		try {
 			String sql = "INSERT INTO `user`(`name`, `password`, `email`, `mobile_number`, `address`, `user_type`) VALUES (?,?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
-			ps.setString(1, user.name);
-			ps.setString(2, user.password);
-			ps.setString(3, user.email);
-			ps.setString(4, user.mobile_number);
-			ps.setString(5, user.address);
-			ps.setString(6, user.user_type);
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getPassword());
+			ps.setString(3, user.getEmail());
+			ps.setString(4, user.getMobile_number());
+			ps.setString(5, user.getAddress());
+			ps.setString(6, user.getUser_type());
 			
 			if(ps.executeUpdate() == 1) {
 				JOptionPane.showMessageDialog(MainFrame.frame, "User added", "Success", JOptionPane.INFORMATION_MESSAGE);

@@ -1,6 +1,7 @@
 package com.mp;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,8 @@ import com.mp.views.admin.AdminPanel;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.MatteBorder;
 
 public class MainFrame extends JFrame {
 
@@ -32,11 +35,8 @@ public class MainFrame extends JFrame {
 	Login loginPanel;
 	AccountantPanel accountantPanel;
 	AdminPanel adminPanel;
-	JPanel currentPanel;
+	JPanel currentPanel, windowTitleBar;
 
-	/*
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -52,33 +52,52 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		frame = this;
-
+		
+		// Frame details 
+		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 600);
+		setResizable(false);
+		setSize(900,616);
 		setLocationRelativeTo(null);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setBackground(Color.white);
 
+		windowTitleBar = new WindowTitleBar();
+	
+		contentPane = new JPanel();
+		setContentPane(contentPane);
 		loginPanel = new Login();
+		loginPanel.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(64, 64, 64)));
 		currentPanel = loginPanel;
 		
+		FrameDragListener frameDragListener = new FrameDragListener(frame);
+        frame.addMouseListener(frameDragListener);
+        frame.addMouseMotionListener(frameDragListener);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(currentPanel, GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(currentPanel,
-				GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(loginPanel, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+						.addComponent(windowTitleBar, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(windowTitleBar, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+					.addComponent(loginPanel, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE))
+		);
 		contentPane.setLayout(gl_contentPane);
 
+		
 		loginPanel.btnLogin.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				User user = DatabaseConfig.check_login(loginPanel.tf_username.getText(),
 						loginPanel.tf_password.getText());
 				if (user != null) {
-					if (user.user_type.equals("admin")) {
+					System.out.println("user type : " + user.getUser_type());
+
+					if (user.getUser_type().equals("admin")) {
 						// Admin Login
 						adminPanel = new AdminPanel(user);
 						adminPanel.setVisible(true);
@@ -86,8 +105,9 @@ public class MainFrame extends JFrame {
 						contentPane.add(adminPanel);
 						startAdminPanelEvent();
 						loginPanel.setVisible(false);
-					} else if (user.user_type.equals("accountant")) {
+					} else if (user.getUser_type().equals("acountant")) {
 						// Accountant Login
+						System.out.println(user.getUser_type());
 						accountantPanel = new AccountantPanel(user);
 						accountantPanel.addSearchResult(DatabaseConfig.getAllStudentFeeList());
 						accountantPanel.setVisible(true);

@@ -23,8 +23,8 @@ public class Login extends JPanel {
 	public JButton btnLogin;
 
 	public Login() {
+		setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.DARK_GRAY));
 		setBackground(Color.white);
-		setBounds(0, 0, 872, 543);
 
 		JLabel lblLogin = new JLabel("Login");
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
