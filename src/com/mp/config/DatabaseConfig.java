@@ -47,7 +47,7 @@ public class DatabaseConfig {
 		PreparedStatement ps;
 		User user = null;
 		try {
-			ps = con.prepareStatement("select * from user where id=? and password=?");
+			ps = con.prepareStatement("SELECT id, name, password, email, mobile_number, user_type, address FROM `user` where id=? and password=?");
 			ps.setString(1, reg_id);
 			ps.setString(2, pass);
 			ResultSet rs = ps.executeQuery();

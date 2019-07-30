@@ -1,16 +1,14 @@
 package com.mp;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 
 import com.mp.config.DatabaseConfig;
 import com.mp.model.User;
@@ -21,7 +19,6 @@ import com.mp.views.admin.AdminPanel;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.MatteBorder;
 
 public class MainFrame extends JFrame {
@@ -35,7 +32,8 @@ public class MainFrame extends JFrame {
 	Login loginPanel;
 	AccountantPanel accountantPanel;
 	AdminPanel adminPanel;
-	JPanel currentPanel, windowTitleBar, uiPanel;
+	com.mp.JPanel currentPanel;
+	JPanel windowTitleBar, uiPanel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -72,7 +70,7 @@ public class MainFrame extends JFrame {
 		uiPanel = new JPanel();
 		loginPanel = new Login();
 
-		currentPanel = loginPanel;
+		updatePanel(loginPanel);
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -90,22 +88,16 @@ public class MainFrame extends JFrame {
 				User user = DatabaseConfig.check_login(loginPanel.tf_username.getText(),
 						loginPanel.tf_password.getText());
 				if (user != null) {
-					System.out.println("user type : " + user.getUser_type());
-
 					if (user.getUser_type().equals("admin")) {
 						// Admin Login
 						adminPanel = new AdminPanel(user);
-						adminPanel.setVisible(true);
-						currentPanel = adminPanel;
-						contentPane.add(adminPanel);
+						updatePanel(adminPanel);
 						startAdminPanelEvent();
 						loginPanel.setVisible(false);
 					} else if (user.getUser_type().equals("acountant")) {
 						// Accountant Login
-						System.out.println(user.getUser_type());
 						accountantPanel = new AccountantPanel(user);
 						accountantPanel.addSearchResult(DatabaseConfig.getAllStudentFeeList());
-						accountantPanel.setVisible(true);
 						// accountantPanel.setBounds(0, 0, 872, 543);
 						currentPanel = accountantPanel;
 						contentPane.add(accountantPanel);
@@ -154,8 +146,10 @@ public class MainFrame extends JFrame {
 		});
 	}
 
-	private void updatePanel(JPanel panel) {
+	private void updatePanel(com.mp.JPanel panel) {
 		currentPanel = panel;
+		WindowTitleBar.setPanelName(panel.getPanelName());
+		
 		currentPanel.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(64, 64, 64)));
 		GroupLayout gl_uiPanel = new GroupLayout(uiPanel);
 		gl_uiPanel.setHorizontalGroup(

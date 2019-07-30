@@ -1,11 +1,8 @@
 package com.mp;
 
 import java.awt.Color;
-import java.awt.Image;
-
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -17,6 +14,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 public class WindowTitleBar extends JPanel{
+
+	private static final long serialVersionUID = 1L;
+	private static JLabel lblTitle;
+	
 	public WindowTitleBar() {
 		setBorder(new MatteBorder(1, 1, 0, 1, (Color) Color.DARK_GRAY));
 		setSize(900, 16);
@@ -40,7 +41,7 @@ public class WindowTitleBar extends JPanel{
 				
 		closeBtn.setBackground(null);
 		
-		JLabel lblTitle = new JLabel("Title");
+		lblTitle = new JLabel("Fee Management");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -61,5 +62,9 @@ public class WindowTitleBar extends JPanel{
 			
 		);
 		setLayout(groupLayout);
+	}
+	
+	public static void setPanelName(String panelName) {
+		lblTitle.setText(panelName);
 	}
 }

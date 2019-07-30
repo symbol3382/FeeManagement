@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-public class AccountantPanel extends JPanel {
+public class AccountantPanel extends com.mp.JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -46,6 +46,7 @@ public class AccountantPanel extends JPanel {
 	JPanel panel;
 
 	public AccountantPanel(User user) {
+		this.user = user;
 		panel = this;
 		btnLogOut = new JButton("Log Out");
 		btnSearchByRegistration = new JButton("Search By Registration ID");
@@ -207,9 +208,7 @@ public class AccountantPanel extends JPanel {
 		int i = 0;
 		for (UserFee userFee : userFees) {
 			AccountantSearchResultRow resultRow = new AccountantSearchResultRow(i, userFee);
-
 			resultRow.btnPay.addActionListener(new ActionListener() {
-
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					String reg_no = userFee.reg_no;
@@ -218,7 +217,6 @@ public class AccountantPanel extends JPanel {
 					int fee = userFee.fee;
 					int paid = userFee.paid;
 					int due = userFee.due;
-
 					if (due == 0) {
 						JOptionPane.showMessageDialog(panel,
 								"There is no amount to pay on this fees for student : " + userFee.name, "No Due",
@@ -246,5 +244,10 @@ public class AccountantPanel extends JPanel {
 		temp.setLayout(new BoxLayout(temp, 1));
 		scrollPaneUserList.setViewportView(temp);
 		scrollPaneUserList.setBackground(Color.white);
+	}
+	
+	@Override 
+	public String getPanelName() {
+		return "Welcome, " + user.getName();
 	}
 }

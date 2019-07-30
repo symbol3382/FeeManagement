@@ -2,7 +2,6 @@ package com.mp.views;
 
 import java.awt.Color;
 
-import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -13,6 +12,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 
+import com.mp.JPanel;
+
 import javax.swing.SwingConstants;
 
 public class Login extends JPanel {
@@ -21,8 +22,11 @@ public class Login extends JPanel {
 	public JPasswordField tf_password;
 
 	public JButton btnLogin;
+	private String panelName;
 
 	public Login() {
+		
+		panelName = "Login";
 		setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.DARK_GRAY));
 		setBackground(Color.white);
 
@@ -94,4 +98,10 @@ public class Login extends JPanel {
 		);
 		setLayout(groupLayout);
 	}
+	
+	@Override
+	public String getPanelName() {
+		return panelName;
+	}
+
 }
