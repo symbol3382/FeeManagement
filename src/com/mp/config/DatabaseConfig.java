@@ -57,10 +57,11 @@ public class DatabaseConfig {
 				String password = rs.getString(3);
 				String email = rs.getString(4);
 				String mobile_number = rs.getString(5);
-				String address = rs.getString(6);
-				String user_type = rs.getString(7);
+				String user_type = rs.getString(6);
+				String address = rs.getString(7);
 
 				user = new User(id, name, email, password, address, mobile_number, user_type);
+				System.out.println(user);
 			}
 			con.close();
 		} catch (SQLException e) {

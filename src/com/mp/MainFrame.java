@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 	Login loginPanel;
 	AccountantPanel accountantPanel;
 	AdminPanel adminPanel;
-	JPanel currentPanel, windowTitleBar;
+	JPanel currentPanel, windowTitleBar, uiPanel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -52,43 +52,38 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		frame = this;
-		
-		// Frame details 
+
+		// Frame details
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		setSize(900,616);
+		setSize(900, 616);
 		setLocationRelativeTo(null);
 
 		windowTitleBar = new WindowTitleBar();
-	
+
 		contentPane = new JPanel();
 		setContentPane(contentPane);
-		loginPanel = new Login();
-		loginPanel.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(64, 64, 64)));
-		currentPanel = loginPanel;
-		
-		FrameDragListener frameDragListener = new FrameDragListener(frame);
-        frame.addMouseListener(frameDragListener);
-        frame.addMouseMotionListener(frameDragListener);
-		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(loginPanel, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
-						.addComponent(windowTitleBar, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(windowTitleBar, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-					.addComponent(loginPanel, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE))
-		);
-		contentPane.setLayout(gl_contentPane);
 
-		
+		FrameDragListener frameDragListener = new FrameDragListener(frame);
+		frame.addMouseListener(frameDragListener);
+		frame.addMouseMotionListener(frameDragListener);
+
+		uiPanel = new JPanel();
+		loginPanel = new Login();
+
+		currentPanel = loginPanel;
+
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(windowTitleBar, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+				.addComponent(uiPanel, GroupLayout.PREFERRED_SIZE, 900, GroupLayout.PREFERRED_SIZE));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+						.addComponent(windowTitleBar, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(uiPanel, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap()));
+
 		loginPanel.btnLogin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -111,7 +106,7 @@ public class MainFrame extends JFrame {
 						accountantPanel = new AccountantPanel(user);
 						accountantPanel.addSearchResult(DatabaseConfig.getAllStudentFeeList());
 						accountantPanel.setVisible(true);
-//						accountantPanel.setBounds(0, 0, 872, 543);
+						// accountantPanel.setBounds(0, 0, 872, 543);
 						currentPanel = accountantPanel;
 						contentPane.add(accountantPanel);
 						startAccountantPanelEvent();
@@ -122,6 +117,8 @@ public class MainFrame extends JFrame {
 				}
 			}
 		});
+
+		contentPane.setLayout(gl_contentPane);
 
 	}
 
@@ -148,13 +145,26 @@ public class MainFrame extends JFrame {
 
 	public void startAdminPanelEvent() {
 		adminPanel.btnLogout.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				loginPanel.setVisible(true);
 				adminPanel.setVisible(false);
 			}
 		});
+	}
+
+	private void updatePanel(JPanel panel) {
+		currentPanel = panel;
+		currentPanel.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(64, 64, 64)));
+		GroupLayout gl_uiPanel = new GroupLayout(uiPanel);
+		gl_uiPanel.setHorizontalGroup(
+				gl_uiPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_uiPanel.createSequentialGroup()
+						.addComponent(currentPanel, GroupLayout.PREFERRED_SIZE, 900, GroupLayout.PREFERRED_SIZE)));
+		gl_uiPanel.setVerticalGroup(
+				gl_uiPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_uiPanel.createSequentialGroup()
+						.addComponent(currentPanel, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE)));
+		uiPanel.setLayout(gl_uiPanel);
 	}
 }
 
