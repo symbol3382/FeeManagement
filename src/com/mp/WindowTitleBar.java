@@ -20,7 +20,7 @@ public class WindowTitleBar extends JPanel{
 	
 	public WindowTitleBar() {
 		setBorder(new MatteBorder(1, 1, 0, 1, (Color) Color.DARK_GRAY));
-		setSize(900, 16);
+		setSize(900, 20);
 		setBackground(new Color(230,230,230));
 		
 		ImageIcon closeIcon = new ImageIcon("reference/close-active.png");
@@ -57,8 +57,8 @@ public class WindowTitleBar extends JPanel{
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addComponent(indent, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-				.addComponent(closeBtn, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-				.addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+				.addComponent(closeBtn, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+				.addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 			
 		);
 		setLayout(groupLayout);

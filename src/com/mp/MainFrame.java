@@ -55,17 +55,17 @@ public class MainFrame extends JFrame {
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		setSize(900, 616);
+		setSize(900, 620);
 		setLocationRelativeTo(null);
 
 		windowTitleBar = new WindowTitleBar();
 
 		contentPane = new JPanel();
 		setContentPane(contentPane);
-
+		
 		FrameDragListener frameDragListener = new FrameDragListener(frame);
-		frame.addMouseListener(frameDragListener);
-		frame.addMouseMotionListener(frameDragListener);
+		windowTitleBar.addMouseListener(frameDragListener);
+		windowTitleBar.addMouseMotionListener(frameDragListener);
 
 		uiPanel = new JPanel();
 		loginPanel = new Login();
@@ -78,7 +78,7 @@ public class MainFrame extends JFrame {
 				.addComponent(uiPanel, GroupLayout.PREFERRED_SIZE, 900, GroupLayout.PREFERRED_SIZE));
 		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addComponent(windowTitleBar, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(windowTitleBar, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 						.addComponent(uiPanel, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap()));
 
@@ -150,7 +150,6 @@ public class MainFrame extends JFrame {
 		currentPanel = panel;
 		WindowTitleBar.setPanelName(panel.getPanelName());
 		
-		currentPanel.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(64, 64, 64)));
 		GroupLayout gl_uiPanel = new GroupLayout(uiPanel);
 		gl_uiPanel.setHorizontalGroup(
 				gl_uiPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_uiPanel.createSequentialGroup()

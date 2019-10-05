@@ -17,41 +17,46 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class AdminPanel extends com.mp.JPanel {
 	private static final long serialVersionUID = 1L;
-	JPanel adminSidePanel;
-	JPanel currentPanel;
-
-	JPanel panel = this;
+	private JPanel adminLeftPanel, adminRightSide, adminUIPanel, panel = this;;
 	private User user;
 
 	public JButton btnLogout;
-
-	AdminDashboard adminDashboard;
-	AdminAddUser adminAddUser;
+	private AdminAddUser adminAddUser;
+	private AdminDashboard adminDashboard;
 
 	public AdminPanel(User user) {
+		setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		this.user = user;
-		setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.DARK_GRAY));
 		setBackground(Color.white);
-
-		adminSidePanel = new JPanel();
-		adminSidePanel.setBackground(Color.WHITE);
-		adminSidePanel.setBorder(new MatteBorder(0, 0, 0, 1, (Color) new Color(0, 0, 0)));
-
+		
 		adminDashboard = new AdminDashboard(user);
-		currentPanel = adminDashboard;
+		adminAddUser = new AdminAddUser(user);
+		
+		adminLeftPanel = new JPanel();
+		adminRightSide = new JPanel();
+
+		adminLeftPanel.setBackground(Color.WHITE);
+		
+		updatePanel(adminDashboard);
+
+//		Layout design(150x600) for side panel 
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addComponent(adminSidePanel, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-						.addComponent(adminDashboard, GroupLayout.PREFERRED_SIZE, 750, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup()
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(adminSidePanel, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE)
-						.addComponent(adminDashboard, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE))
-				.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+					.addComponent(adminLeftPanel, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+					.addComponent(adminRightSide, GroupLayout.PREFERRED_SIZE, 749, GroupLayout.PREFERRED_SIZE)
+		));
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(adminLeftPanel, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+						.addComponent(adminRightSide, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE))
+					)
+		);
+		
 
 		// Admin Side panel
 
@@ -80,17 +85,17 @@ public class AdminPanel extends com.mp.JPanel {
 		btnLogout.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.DARK_GRAY));
 		btnAddFeeEvent.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.DARK_GRAY));
 
-		GroupLayout gl_adminSidePanel = new GroupLayout(adminSidePanel);
-		gl_adminSidePanel.setHorizontalGroup(gl_adminSidePanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_adminSidePanel.createSequentialGroup().addGroup(gl_adminSidePanel
+		GroupLayout gl_adminLeftPanel = new GroupLayout(adminLeftPanel);
+		gl_adminLeftPanel.setHorizontalGroup(gl_adminLeftPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_adminLeftPanel.createSequentialGroup().addGroup(gl_adminLeftPanel
 						.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnDashboard, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnAddStudent, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnAddFeeEvent, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
 						.addGap(460)));
-		gl_adminSidePanel.setVerticalGroup(gl_adminSidePanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_adminSidePanel.createSequentialGroup()
+		gl_adminLeftPanel.setVerticalGroup(gl_adminLeftPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_adminLeftPanel.createSequentialGroup()
 						.addComponent(btnDashboard, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(btnAddStudent, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
@@ -99,26 +104,18 @@ public class AdminPanel extends com.mp.JPanel {
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(392, Short.MAX_VALUE)));
-		adminSidePanel.setLayout(gl_adminSidePanel);
+		adminLeftPanel.setLayout(gl_adminLeftPanel);
 		setLayout(groupLayout);
 
 		btnDashboard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adminDashboard = new AdminDashboard(user);
-				hideAllComponent();
-				adminDashboard.setVisible(true);
-				currentPanel = adminDashboard;
-				panel.add(adminDashboard);
+				updatePanel(adminDashboard);
 			}
 		});
 
 		btnAddStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				adminAddUser = new AdminAddUser(user);
-				hideAllComponent();
-				adminAddUser.setVisible(true);
-				currentPanel = adminAddUser;
-				panel.add(adminAddUser);
+				updatePanel(adminAddUser);
 			}
 		});
 
@@ -144,5 +141,25 @@ public class AdminPanel extends com.mp.JPanel {
 		}
 	}
 	
-
+	private void hideOtherPanels() {
+		adminDashboard.setVisible(false);
+		adminAddUser.setVisible(false);
+	}
+	
+	private void updatePanel(JPanel currentPanel) {
+		hideOtherPanels();
+		currentPanel.setVisible(true);
+		GroupLayout gl_panel_1 = new GroupLayout(adminRightSide);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addComponent(currentPanel, GroupLayout.PREFERRED_SIZE, 750, GroupLayout.PREFERRED_SIZE)
+		));
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addComponent(currentPanel, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE)
+		));
+		adminRightSide.setLayout(gl_panel_1);
+	}
 }

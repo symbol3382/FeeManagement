@@ -213,6 +213,7 @@ public class DatabaseConfig {
 			con.close();
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println(e);
 		} 
 	}
 }
